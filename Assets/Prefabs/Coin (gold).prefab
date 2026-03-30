@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7982340624571902327}
   - component: {fileID: 4977938503532741922}
   - component: {fileID: 113975696440353182}
-  - component: {fileID: 3397633851565025071}
+  - component: {fileID: 4821630024899693573}
   m_Layer: 0
   m_Name: Coin (gold)
   m_TagString: Untagged
@@ -37,6 +37,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7982340624571902327
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -82,6 +83,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: -4986890610287934012, guid: 274d64617113287499ed1c4165d1d8f3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -91,7 +93,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &4977938503532741922
 Animator:
@@ -129,8 +130,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Coin
   coinSFX: {fileID: 8300000, guid: 4810b5971951446d2ba39f367a2dc2d6, type: 3}
   coinsToGive: 5
---- !u!61 &3397633851565025071
-BoxCollider2D:
+--- !u!58 &4821630024899693573
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -163,15 +164,5 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0030639172, y: 0.0015319586}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.5220394, y: 0.5189755}
-  m_EdgeRadius: 0
+  m_Offset: {x: -0.0029428005, y: 0}
+  m_Radius: 0.22434878

@@ -7,7 +7,8 @@ public class Player : MonoBehaviour
     public int coins;
     public int health = 100;
     public float moveSpeed = 5f;
-    public float jumpForce = 10f;
+    public float jumpForce = 7.5f;
+    public float jumpContinues = 1f;
     public Transform groundCheck;
     public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
@@ -26,6 +27,10 @@ public class Player : MonoBehaviour
     
     public int extraJumpsValue = 1;
     private int extraJumps;
+    public float coyoteTime = 0.2f;
+    private float coyoteTimeCounter;
+    public float jumpBufferTime = 0.1f;
+    private float jumpBufferCounter;
         void Start()
         {
             rb = GetComponent<Rigidbody2D>();
@@ -55,27 +60,58 @@ public class Player : MonoBehaviour
 
             if(isGrounded)
             {
+                coyoteTimeCounter = coyoteTime;
                 extraJumps = extraJumpsValue;
             }
-
+            else
+            {
+                coyoteTimeCounter -= Time.deltaTime;
+            }
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                if(isGrounded)
+                jumpBufferCounter = jumpBufferTime;
+            }
+            else            {
+                jumpBufferCounter -= Time.deltaTime;
+            }
+            if (jumpBufferCounter > 0f)
+            {
+                if(coyoteTimeCounter > 0)
                 {
                     rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce); 
                     PlaySFX(jumpClip);
+                    coyoteTimeCounter = 0f;
+                    jumpBufferCounter = 0f;
                 }
                 else if(extraJumps > 0)
                 {
                     rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
                     extraJumps--;
                     PlaySFX(jumpClip);
+                    jumpBufferCounter = 0f;
                 }
-
+            }
+            if (Input.GetKey(KeyCode.Space) && rb.linearVelocityY > 0)
+            {
+                rb.AddForceY(jumpContinues * Time.deltaTime, ForceMode2D.Force);
             }
             SetAnimation(moveInput);
 
             healthImage.fillAmount = health / 100f;
+                
+            if(transform.position.y < -20)
+            {
+                Die();
+            }
+
+            if(rb.linearVelocityY > 0)
+        {
+            rb.gravityScale = 2f;
+        }
+        else
+        {
+            rb.gravityScale =3f;
+        }
         }
 
     private void FixedUpdate()
